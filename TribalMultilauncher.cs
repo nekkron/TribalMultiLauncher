@@ -35,12 +35,12 @@ using System.Windows.Forms;
 namespace TribalMultiLauncherNamespace {
     public class TribalMultiLauncher : Form {
 //{ Ints
-        public int build = 186;//Get-RebuildCsharpApp TribalMultiLauncher
+        public int build = 190;//Get-RebuildCsharpApp TribalMultiLauncher
 		public string appName = "TribalMultiLauncher";
 		public string StoreName = "Not Loaded";
 		public string StoreCoords = "Not Loaded";
 		public string webHook = "Not Loaded";
-		public string appTitle = "TribalMultiLauncher - Build ";
+		public string appTitle = "TribalMultiLauncher - 1.";
 		public static string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
 
 		public string T1DownloadString = "https://tr1bes.us/configs/downloads.php?id=23";
@@ -72,6 +72,9 @@ namespace TribalMultiLauncherNamespace {
 		public string MA2LaunchString = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Midair 2\\Midair2\\Binaries\\Win64\\Midair2-Win64-Shipping.exe";
 		public string MA2DiscordString = "https://discord.com/invite/GRErnjrGh3";
 		public string MA2WebsiteString = "https://midair2.gg/";
+
+		public string BSPreviewString = "https://www.youtube.com/watch?v=8MS0lxJh8G8";
+		public string BSDiscordString = "https://discord.gg/Broadside";
 
 
 
@@ -168,7 +171,7 @@ public enum GameStates
 
 
 		public int WindowWidth = col8+20;
-		public int WindowHeight = row7+5;
+		public int WindowHeight = row8+5;
 		
 		public bool debuggingView = false;
 
@@ -232,11 +235,13 @@ public enum GameStates
  			drawButton(ref MA2DiscordButton, col4, row4, col2, row1, "Discord", MA2DiscordButton_Click);
  			drawButton(ref MA2WebsiteButton, col6, row4, col2, row1, "Website", MA2WebsiteButton_Click);
 
-RefreshStatus();
+			drawLabel(ref BSLabel, col0, row5, col2, row1, "Broadside:");
+ 			drawButton(ref BSLaunchButton, col2, row5, col2, row1, "Video Preview", BSPreviewButton_Click);
+ 			drawButton(ref BSDiscordButton, col4, row5, col2, row1, "Discord", BSDiscordButton_Click);
+ 			// drawButton(ref BSWebsiteButton, col6, row5, col2, row1, "Website", BSWebsiteButton_Click);
 
-			
-
-        } // end TribalMultiLauncher
+			RefreshStatus();
+		} // end TribalMultiLauncher
 
 		public void buildMenuBar (){
 			this.Menu = new MainMenu();
@@ -293,6 +298,7 @@ RefreshStatus();
 			TALabel.Text = TALabel.Text + "\n" + TAState.ToString();
 			TVLabel.Text = TVLabel.Text + "\n" + TVState.ToString();
 			MA2Label.Text = MA2Label.Text + "\n" + MA2State.ToString();
+			BSLabel.Text = BSLabel.Text + "\nPreview";
 			
 			if (T1State == GameStates.None) {
 				T1DownloadButton.Visible = true;
@@ -509,12 +515,15 @@ RefreshStatus();
 			System.Diagnostics.Process.Start("PathOrUrl");
         }// end BSInstallButton_Click
 
+        public void BSPreviewButton_Click(object sender, EventArgs e) {
+			System.Diagnostics.Process.Start(BSPreviewString);
+        }// end BSLaunchButton_Click
+
         public void BSLaunchButton_Click(object sender, EventArgs e) {
-			System.Diagnostics.Process.Start("PathOrUrl");
         }// end BSLaunchButton_Click
 
         public void BSDiscordButton_Click(object sender, EventArgs e) {
-			System.Diagnostics.Process.Start("https://discord.gg/Broadside");
+			System.Diagnostics.Process.Start(BSDiscordString);
         }// end BSLaunchButton_Click
 
         public void BSWebsiteButton_Click(object sender, EventArgs e) {
